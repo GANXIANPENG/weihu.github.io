@@ -13,18 +13,26 @@
       height: 100%;
       font-family: 'Roboto', sans-serif;
       background: #f2f6fc;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       color: #333;
     }
-    
-    /* 容器居中 */
+    /* 公共容器样式 */
     .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       text-align: center;
       padding: 20px;
+      height: 100%;
     }
-    
+    /* 页面切换：默认隐藏所有页面 */
+    .page {
+      display: none;
+    }
+    /* 激活页面显示 */
+    .page.active {
+      display: block;
+    }
     /* 主标题 */
     .message {
       font-size: 2rem;
@@ -32,13 +40,11 @@
       color: #007bff;  /* 蓝色主题 */
       margin-bottom: 20px;
     }
-    
     /* 副标题 */
     .sub-message {
       font-size: 1.2rem;
       margin-bottom: 30px;
     }
-    
     /* 加载动画样式 */
     .spinner {
       width: 50px;
@@ -49,42 +55,76 @@
       animation: spin 1s linear infinite;
       margin: 0 auto;
     }
-    
-    /* 维护时间信息 */
-    .maintenance-info {
-      font-size: 1.2rem;
-      margin-top: 20px;
-      color: #555;
-    }
-    .maintenance-time {
-      font-size: 1.2rem;
-      color: #555;
-    }
-    
-    /* 旋转动画 */
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
-    
+    /* 维护时间信息 */
+    .maintenance-info, .maintenance-time {
+      font-size: 1.2rem;
+      color: #555;
+    }
+    .maintenance-info {
+      margin-top: 20px;
+    }
+    /* 按钮样式 */
+    .maintenance-button {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      color: #fff;
+      background-color: #007bff;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+      cursor: pointer;
+    }
+    .maintenance-button:hover {
+      background-color: #0056b3;
+    }
+    /* 详细维护内容样式 */
+    .details-content {
+      font-size: 1.5rem;
+      line-height: 2;
+    }
     /* 响应式调整 */
     @media (max-width: 600px) {
       .message {
         font-size: 1.5rem;
       }
-      .sub-message, .maintenance-info, .maintenance-time {
+      .sub-message, .maintenance-info, .maintenance-time, .maintenance-button, .details-content {
         font-size: 1rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <!-- 第一页：网站维护信息 -->
+  <div id="page1" class="container page active">
     <div class="message">网站正在维护</div>
     <div class="sub-message">请稍等片刻...</div>
     <div class="spinner"></div>
     <div class="maintenance-info">预计维护完成上线时间</div>
-    <div class="maintenance-time">2025.3.29 23：00</div>
+    <div class="maintenance-time">2025.3.27 23：00</div>
+    <div class="maintenance-button" id="maintenanceButton">详细维护内容</div>
   </div>
+
+  <!-- 第二页：详细维护内容 -->
+  <div id="page2" class="container page">
+    <div class="details-content">
+      1、重新定位链接到谷歌服务器<br>
+      2、图片库更新<br>
+      3、优化切换动画
+    </div>
+  </div>
+
+  <script>
+    // 点击按钮后隐藏第一页，显示第二页
+    document.getElementById('maintenanceButton').addEventListener('click', function() {
+      document.getElementById('page1').classList.remove('active');
+      document.getElementById('page2').classList.add('active');
+    });
+  </script>
 </body>
 </html>
