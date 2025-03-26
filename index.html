@@ -50,6 +50,17 @@
       margin: 0 auto;
     }
     
+    /* 维护时间信息 */
+    .maintenance-info {
+      font-size: 1.2rem;
+      margin-top: 20px;
+      color: #555;
+    }
+    .maintenance-time {
+      font-size: 1.2rem;
+      color: #555;
+    }
+    
     /* 旋转动画 */
     @keyframes spin {
       0% { transform: rotate(0deg); }
@@ -61,7 +72,7 @@
       .message {
         font-size: 1.5rem;
       }
-      .sub-message {
+      .sub-message, .maintenance-info, .maintenance-time {
         font-size: 1rem;
       }
     }
@@ -72,6 +83,8 @@
     <div class="message">网站正在维护</div>
     <div class="sub-message">请稍等片刻...</div>
     <div class="spinner"></div>
+    <div class="maintenance-info">预计维护完成上线时间</div>
+    <div class="maintenance-time">2025.3.27 11：00</div>
   </div>
 </body>
 </html>
