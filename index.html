@@ -1,130 +1,214 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>网站维护中</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <style>
-    /* 基础样式 */
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: 'Roboto', sans-serif;
-      background: #f2f6fc;
-      color: #333;
-    }
-    /* 公共容器样式 */
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 20px;
-      height: 100%;
-    }
-    /* 页面切换：默认隐藏所有页面 */
-    .page {
-      display: none;
-    }
-    /* 激活页面显示 */
-    .page.active {
-      display: block;
-    }
-    /* 主标题 */
-    .message {
-      font-size: 2rem;
-      font-weight: 500;
-      color: #007bff;  /* 蓝色主题 */
-      margin-bottom: 20px;
-    }
-    /* 副标题 */
-    .sub-message {
-      font-size: 1.2rem;
-      margin-bottom: 30px;
-    }
-    /* 加载动画样式 */
-    .spinner {
-      width: 50px;
-      height: 50px;
-      border: 5px solid #e6e6e6;
-      border-top: 5px solid #007bff; /* 蓝色主题 */
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin: 0 auto;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    /* 维护时间信息 */
-    .maintenance-info, .maintenance-time {
-      font-size: 1.2rem;
-      color: #555;
-    }
-    .maintenance-info {
-      margin-top: 20px;
-    }
-    /* 按钮样式 */
-    .maintenance-button {
-      display: inline-block;
-      margin-top: 30px;
-      padding: 10px 20px;
-      font-size: 1rem;
-      color: #fff;
-      background-color: #007bff;
-      text-decoration: none;
-      border-radius: 5px;
-      transition: background-color 0.3s;
-      cursor: pointer;
-    }
-    .maintenance-button:hover {
-      background-color: #0056b3;
-    }
-    /* 详细维护内容样式 */
-    .details-content {
-      font-size: 1.5rem;
-      line-height: 2;
-    }
-    /* 响应式调整 */
-    @media (max-width: 600px) {
-      .message {
-        font-size: 1.5rem;
-      }
-      .sub-message, .maintenance-info, .maintenance-time, .maintenance-button, .details-content {
-        font-size: 1rem;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>网站维护</title>
+    <style>
+        /* Reset margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+        }
+        body {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            background-color: #f0f8ff; /* 浅蓝色背景 */
+            color: #333; /* 深灰色文字 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            width: 80%;
+            max-width: 600px;
+            padding: 20px 30px;
+            text-align: center;
+        }
+        h1 {
+            color: #007BFF; /* 蓝色主题色 */
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+        p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 1.1em;
+        }
+        ul {
+            list-style-type: disc;
+            list-style-position: inside;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        ul li {
+            margin: 8px 0;
+            font-size: 1.1em;
+        }
+        .nav-buttons {
+            margin-top: 20px;
+        }
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 16px;
+            font-size: 1em;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+        button:disabled {
+            background-color: #aaa;
+            cursor: not-allowed;
+        }
+        /* 动画类 */
+        .fade-in {
+            animation: fadeIn 0.6s;
+        }
+        .fade-out {
+            animation: fadeOut 0.6s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        /* 隐藏所有页面 */
+        .page {
+            display: none;
+        }
+        /* 当前页面显示 */
+        .active {
+            display: block;
+        }
+    </style>
 </head>
 <body>
-  <!-- 第一页：网站维护信息 -->
-  <div id="page1" class="container page active">
-    <div class="message">网站正在维护</div>
-    <div class="sub-message">请稍等片刻...</div>
-    <div class="spinner"></div>
-    <div class="maintenance-info">预计维护完成上线时间</div>
-    <div class="maintenance-time">东京时间2025.5.23 15：30</div>
-    <div class="maintenance-button" id="maintenanceButton">详细维护内容</div>
-  </div>
-
-  <!-- 第二页：详细维护内容 -->
-  <div id="page2" class="container page">
-    <div class="details-content">
-      1、提升链接谷歌服务器速度<br>
-      2、智能AI大模型嵌入<br>
-      3、优化切换动画1.8.2
+    <div class="container">
+        <!-- 第1页：网站正在维护 -->
+        <div class="page active" id="page1">
+            <h1>网站正在维护</h1>
+            <p>抱歉给您带来不便，我们正在进行升级维护。请耐心等待。</p>
+            <div class="nav-buttons">
+                <button id="prevBtn1" disabled>上一页</button>
+                <button id="nextBtn1">下一页</button>
+            </div>
+        </div>
+        <!-- 第2页：预计上线时间 -->
+        <div class="page" id="page2">
+            <h1>预计上线时间</h1>
+            <p>预计一周内恢复</p>
+            <div class="nav-buttons">
+                <button id="prevBtn2">上一页</button>
+                <button id="nextBtn2">下一页</button>
+            </div>
+        </div>
+        <!-- 第3页：更新内容 -->
+        <div class="page" id="page3">
+            <h1>更新内容</h1>
+            <ul>
+                <li>优化性能</li>
+                <li>修复已知问题</li>
+                <li>更新界面设计</li>
+            </ul>
+            <div class="nav-buttons">
+                <button id="prevBtn3">上一页</button>
+                <button id="nextBtn3" disabled>下一页</button>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <script>
-    // 点击按钮后隐藏第一页，显示第二页
-    document.getElementById('maintenanceButton').addEventListener('click', function() {
-      document.getElementById('page1').classList.remove('active');
-      document.getElementById('page2').classList.add('active');
-    });
-  </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 当前页面索引
+            let currentPage = 1;
+            const totalPages = 3;
+
+            // 更新按钮状态
+            function updateButtons() {
+                for (let i = 1; i <= totalPages; i++) {
+                    const prevBtn = document.getElementById('prevBtn' + i);
+                    const nextBtn = document.getElementById('nextBtn' + i);
+                    if (i === currentPage) {
+                        if (prevBtn) prevBtn.disabled = (currentPage === 1);
+                        if (nextBtn) nextBtn.disabled = (currentPage === totalPages);
+                    } else {
+                        if (prevBtn) prevBtn.disabled = true;
+                        if (nextBtn) nextBtn.disabled = true;
+                    }
+                }
+            }
+
+            // 显示下一页
+            function nextPage() {
+                if (currentPage < totalPages) {
+                    const currentPageDiv = document.getElementById('page' + currentPage);
+                    const nextPageDiv = document.getElementById('page' + (currentPage + 1));
+                    // 当前页淡出
+                    currentPageDiv.classList.add('fade-out');
+                    currentPageDiv.addEventListener('animationend', function handler() {
+                        currentPageDiv.classList.remove('active', 'fade-out');
+                        currentPage++;
+                        // 下一页淡入
+                        nextPageDiv.classList.add('active', 'fade-in');
+                        // 淡入动画结束后移除class
+                        nextPageDiv.addEventListener('animationend', function handlerIn() {
+                            nextPageDiv.classList.remove('fade-in');
+                            nextPageDiv.removeEventListener('animationend', handlerIn);
+                        });
+                        currentPageDiv.removeEventListener('animationend', handler);
+                        updateButtons();
+                    });
+                }
+            }
+
+            // 显示上一页
+            function prevPage() {
+                if (currentPage > 1) {
+                    const currentPageDiv = document.getElementById('page' + currentPage);
+                    const prevPageDiv = document.getElementById('page' + (currentPage - 1));
+                    // 当前页淡出
+                    currentPageDiv.classList.add('fade-out');
+                    currentPageDiv.addEventListener('animationend', function handler() {
+                        currentPageDiv.classList.remove('active', 'fade-out');
+                        currentPage--;
+                        // 上一页淡入
+                        prevPageDiv.classList.add('active', 'fade-in');
+                        // 淡入动画结束后移除class
+                        prevPageDiv.addEventListener('animationend', function handlerIn() {
+                            prevPageDiv.classList.remove('fade-in');
+                            prevPageDiv.removeEventListener('animationend', handlerIn);
+                        });
+                        currentPageDiv.removeEventListener('animationend', handler);
+                        updateButtons();
+                    });
+                }
+            }
+
+            // 为按钮添加事件监听
+            for (let i = 1; i <= totalPages; i++) {
+                const nextBtn = document.getElementById('nextBtn' + i);
+                const prevBtn = document.getElementById('prevBtn' + i);
+                if (nextBtn) {
+                    nextBtn.addEventListener('click', nextPage);
+                }
+                if (prevBtn) {
+                    prevBtn.addEventListener('click', prevPage);
+                }
+            }
+
+            // 初始化按钮状态
+            updateButtons();
+        });
+    </script>
 </body>
 </html>
