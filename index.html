@@ -78,14 +78,9 @@
             <div class="space-y-6">
                 <div class="p-6 bg-white rounded-xl border border-gray-200">
                     <span data-i18n="pub_status" class="text-xs font-bold uppercase tracking-wider text-indigo-500 px-2 py-1 bg-indigo-50 rounded">Under Review</span>
-                    <h3 data-i18n="pub1_title" class="mt-2 font-bold text-lg text-gray-900">[Invalid Noise Ratio: An Artifact-Aware Evaluation Metric for AI-Generated Chiptune Music]</h3>
+                    <h3 class="mt-2 font-bold text-lg text-gray-900">[Invalid Noise Ratio: An Artifact-Aware Evaluation
+Metric for AI-Generated Chiptune Music]</h3>
                     <p data-i18n="pub_desc" class="text-gray-500 text-sm mt-1">无效噪声比：一种面向 AI 生成芯片音乐的伪影感知评价指标.</p>
-                </div>
-
-                <div class="p-6 bg-white rounded-xl border border-gray-200">
-                    <span data-i18n="pub2_status" class="text-xs font-bold uppercase tracking-wider text-emerald-600 px-2 py-1 bg-emerald-50 rounded">已发表</span>
-                    <h3 data-i18n="pub2_title" class="mt-2 font-bold text-lg text-gray-900 leading-relaxed">「公的荣耀」与「私的独白」——米哈伊尔.伊万诺维奇.格林卡的二首钢琴作品分析与解读——</h3>
-                    <p data-i18n="pub2_desc" class="text-gray-500 text-sm mt-1"></p>
                 </div>
             </div>
         </section>
@@ -113,4 +108,79 @@
                 hero_desc: "目前专注于乐器表现（钢琴）的学科研究。我热衷于探索如何利用深度学习技术来理解和创造艺术。",
                 research_title: "研究兴趣",
                 res1_title: "器乐表现（钢琴）研究",
-                res1_desc: "艺术
+                res1_desc: "艺术实践与学术研究深度结合，致力于钢琴演奏艺术的精进，并从学术视角探索音乐诠释的理论逻辑与创新边界。",
+                res2_title: "作曲（乐书）研究",
+                res2_desc: "立足于作曲技法与乐谱文献，研究音乐结构的内在逻辑及其在当代技术环境下的生成机制。",
+                pub_title: "近期论文",
+                pub_status: "Under Review",
+                pub_desc: "无效噪声比：一种面向 AI 生成芯片音乐的伪影感知评价指标.",
+                footer_text: "© 2026 [甘弦朋]. 基于 GitHub Pages 构建."
+            },
+            en: {
+                page_title: "Gan Xianpeng | Portfolio",
+                nav_name: "Gan Xianpeng",
+                nav_about: "About",
+                nav_research: "Research",
+                nav_projects: "Projects",
+                nav_contact: "Contact",
+                hero_title: "Hi, I am [Gan Xianpeng]",
+                hero_desc: "Currently focusing on academic research in instrumental performance (piano). I am passionate about exploring how to use deep learning technologies to understand and create art.",
+                research_title: "Research Interests",
+                res1_title: "Instrumental Performance (Piano)",
+                res1_desc: "Combining artistic practice with academic research, dedicated to refining piano performance art, and exploring the theoretical logic and innovative boundaries of musical interpretation.",
+                res2_title: "Composition (Musical Scores)",
+                res2_desc: "Based on composition techniques and musical score literature, researching the internal logic of musical structures and their generation mechanisms in contemporary technological environments.",
+                pub_title: "Recent Publications",
+                pub_status: "Under Review",
+                pub_desc: "Invalid Noise Ratio: An Artifact-Aware Evaluation Metric for AI-Generated Chiptune Music.",
+                footer_text: "© 2026 [Gan Xianpeng]. Built with GitHub Pages."
+            },
+            ja: {
+                page_title: "甘弦朋 | 個人ポートフォリオ",
+                nav_name: "甘弦朋",
+                nav_about: "私について",
+                nav_research: "研究",
+                nav_projects: "プロジェクト",
+                nav_contact: "お問い合わせ",
+                hero_title: "こんにちは、[甘弦朋]です",
+                hero_desc: "現在、楽器演奏（ピアノ）の学術研究に専念しています。ディープラーニング技術を活用して芸術を理解し、創造することに情熱を注いでいます。",
+                research_title: "研究の関心",
+                res1_title: "器楽演奏（ピアノ）研究",
+                res1_desc: "芸術的実践と学術研究を深く結びつけ、ピアノ演奏芸術の探求に専念し、学術的な視点から音楽解釈の理論的論理と革新の境界を探求します。",
+                res2_title: "作曲（楽譜）研究",
+                res2_desc: "作曲技法と楽譜文献に基づいて、音楽構造の内部論理と現代の技術環境下での生成メカニズムを研究します。",
+                pub_title: "最近の論文",
+                pub_status: "査読中",
+                pub_desc: "無効ノイズ比：AI生成チップチューン音楽のためのアーティファクトを考慮した評価指標.",
+                footer_text: "© 2026 [甘弦朋]. GitHub Pages で構築."
+            }
+        };
+
+        const langSwitch = document.getElementById('lang-switch');
+
+        // 更新页面语言
+        function updateLanguage(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+            document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang;
+            
+            // 如果希望刷新后记住选择的语言，可以将此行取消注释：
+            // localStorage.setItem('preferredLang', lang); 
+        }
+
+        // 监听下拉菜单改变
+        langSwitch.addEventListener('change', (e) => {
+            updateLanguage(e.target.value);
+        });
+
+        // 页面初始化：可以根据系统语言或缓存自动选择
+        // const savedLang = localStorage.getItem('preferredLang') || 'zh';
+        // langSwitch.value = savedLang;
+        // updateLanguage(savedLang);
+    </script>
+</body>
+</html>
